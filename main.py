@@ -2,11 +2,14 @@ from selenium_driver import create_chrome_driver
 from selenium.webdriver.common.by import By
 from datetime import datetime
 from selenium.common.exceptions import NoSuchElementException
+from available_time_check import check_date
+from calendar import monthrange
 
 
 driver = create_chrome_driver(headless=True)
 
 year, month, day = datetime.now().year, datetime.now().month, datetime.now().day
+last_day = monthrange(year, month)[1]
 
 # 빈자리는 0으로 채우기, 2자리 길이 + Decimal = :02d
 url = (
@@ -25,35 +28,35 @@ def main():
         date = td.find_element(By.CSS_SELECTOR, "span.num").text
         try:
             if td.find_element(By.CSS_SELECTOR, "button.unselectable.dayoff"):
-                print(f"{date}일은 휴일입니다.")
                 continue
         except NoSuchElementException:
             pass
 
         try:
             if td.find_element(By.CSS_SELECTOR, "button.unselectable"):
-                print(f"{date}일은 지난 날입니다.")
                 continue
         except NoSuchElementException:
             pass
 
         try:
             if td.find_element(By.CSS_SELECTOR, "button.closed"):
-                print(f"{date}일은 예약 마감됐습니다.")
                 continue
         except NoSuchElementException:
             pass
 
         try:
-            if td.find_element(By.CSS_SELECTOR, "button.today"):
-                print(f"{date}일은 오늘입니다. 추후 로직 작성예정")
+            if btn := td.find_element(By.CSS_SELECTOR, "button.today"):
+                available_time_list = check_date(btn, driver, date)
+                print(f"{date}일 예약 가능한 시간 : {available_time_list}")
                 continue
         except NoSuchElementException:
             pass
 
         try:
-            if td.find_element(By.CSS_SELECTOR, "button.calendar_date"):
-                print(f"{date}일은 예약 가능한 날입니다.")
+            if btn := td.find_element(By.CSS_SELECTOR, "button.calendar_date"):
+                available_time_list = check_date(btn, driver, date)
+                print(f"{date}일 예약 가능한 시간 : {available_time_list}")
+                continue
         except NoSuchElementException:
             pass
 
