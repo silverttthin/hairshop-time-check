@@ -1,3 +1,9 @@
+# 기계에게 패배했음을 선언합니다.
+- Fable로 한줄 간단 스크립트 했는데 알아서 내부 매장 및 담당 디자이너 id를 파싱해 찾고 동적으로 받아오는 js를 뜯어 내부 api를 찾아내 최종적으로 cron 등록까지 한 걸 보고 무조건 항복을 선언합니다.
+
+
+<del>
+
 ### 만들게 된 배경
 - 매번 머리 자르려하면 2-3주간 미용실 예약이 꽉 찼는데 수시로 예약취소 시간대가 생겼나 들락나락하다 화가 나서 만들었습니다
 
@@ -24,4 +30,5 @@
 4. https://stackoverflow.com/questions/21713280/find-div-element-by-multiple-class-names
 5. https://stackoverflow.com/questions/32713009/how-to-check-if-element-contains-specific-class-attribute
 6. https://stackoverflow.com/questions/64887947/how-to-use-nested-selenium-selectors
- 
+
+</del>
